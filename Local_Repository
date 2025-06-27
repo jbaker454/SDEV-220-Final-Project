@@ -1,0 +1,3 @@
+git remote add origin git@github.com:jbaker454/SDEV-220-Final-Project.git
+git branch -M main
+git push -u origin main
