@@ -1,6 +1,7 @@
 import TKinter_Wrapper as widgets
 
 
+
 def initilizeConfigurations():
     widgets.Config("Purple",{"bg":"#634ed0", "highlightthickness":2,"highlightbackground":"#000000", "borderwidth":2})
     widgets.Config("DarkGrey",{"bg":"#3d3d5c","highlightthickness":2,"highlightbackground":"#000000","borderwidth":4})
@@ -19,9 +20,11 @@ initilizeConfigurations()
 window = widgets.Widget.get_instance(widgets.Widget,"Wonkas Chocolate")
 window = widgets.Window(name="Bible CardDeck Simulation", size=[1000,600])
 
+
 EventTest = widgets.Widget.get_instance(widgets.Widget,"EventTest")
 EventTest = widgets.CustomButton(
            name="EventTest", parent=window, size=[10,2], 
            config=widgets.Config.getCustomConfigByName(widgets.Config,"Yellow"), **{"text":"back"})
 EventTest.place(x=730,y=485)
+
 
