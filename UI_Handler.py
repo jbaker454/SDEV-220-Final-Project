@@ -1,1 +1,1 @@
-import TKinter_Wrapper
+import TKinter_Wrapper as widgets
