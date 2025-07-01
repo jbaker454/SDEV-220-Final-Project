@@ -6,7 +6,8 @@ import UI_Handler
 def main():
     
     threading.Thread(target=start_step_event()).start()
-    UI_Handler.window.mainloop()
+    window = UI_Handler.widgets.Widget.get_instance(UI_Handler.widgets.Widget,"Wonkas Chocolate")
+    window.mainloop()
 
 def start_step_event():
     """set up for seperate thread"""
@@ -16,9 +17,10 @@ def start_step_event():
     loop.close()
 
 async def event_main():
-    UI_Handler.EventTest.bind("<Button-1>", lambda event, newMenu="mainMenuFrame": changeMenu(newMenu))
+    eventTest = UI_Handler.widgets.Widget.get_instance(UI_Handler.widgets.Widget,"eventTest")
+    eventTest.bind("<Button-1>", lambda event, newMenu="mainMenuFrame": change_menu(newMenu))
 
-def changeMenu(newMenuName):
+def change_menu(newMenuName):
     print(newMenuName)
 
 main()
