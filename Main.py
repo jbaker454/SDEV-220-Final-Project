@@ -5,11 +5,11 @@ import UI_Handler
 
 def main():
     
-    threading.Thread(target=start_step_event()).start()
+    threading.Thread(target=start_asycronous_thread()).start()
     window = UI_Handler.widgets.Widget.get_instance(UI_Handler.widgets.Widget,"Wonkas Chocolate")
     window.mainloop()
 
-def start_step_event():
+def start_asycronous_thread():
     """set up for seperate thread"""
     loop = asyncio.new_event_loop()
     asyncio.set_event_loop(loop)
