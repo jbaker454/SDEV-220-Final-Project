@@ -17,10 +17,26 @@ def start_step_event():
     loop.close()
 
 async def event_main():
-    eventTest = UI_Handler.widgets.Widget.get_instance(UI_Handler.widgets.Widget,"eventTest")
-    eventTest.bind("<Button-1>", lambda event, newMenu="mainMenuFrame": change_menu(newMenu))
+    """an asyncronous funtion for events"""
+    mainToInventoryButton = UI_Handler.widgets.Widget.get_instance(UI_Handler.widgets.Widget,"mainToInventoryButton")
+    mainToInventoryButton.bind("<Button-1>", lambda event, newMenu="inventorymenuFrame": change_menu(newMenu))
+
+    inventoryToMainButton = UI_Handler.widgets.Widget.get_instance(UI_Handler.widgets.Widget,"inventoryToMainButton")
+    inventoryToMainButton.bind("<Button-1>", lambda event, newMenu="mainMenuFrame": change_menu(newMenu))
+
+    inventoryToShipmentButton = UI_Handler.widgets.Widget.get_instance(UI_Handler.widgets.Widget,"inventoryToShipmentButton")
+    inventoryToShipmentButton.bind("<Button-1>", lambda event, newMenu="shipmentMenuFrame": change_menu(newMenu))
+
+    inventoryToOrderButton = UI_Handler.widgets.Widget.get_instance(UI_Handler.widgets.Widget,"inventoryToOrderButton")
+    inventoryToOrderButton.bind("<Button-1>", lambda event, newMenu="orderMenuFrame": change_menu(newMenu))
+
+    shipmentToInventoryButton = UI_Handler.widgets.Widget.get_instance(UI_Handler.widgets.Widget,"shipmentToInventoryButton")
+    shipmentToInventoryButton.bind("<Button-1>", lambda event, newMenu="inventorymenuFrame": change_menu(newMenu))
+
+    orderToInventory = UI_Handler.widgets.Widget.get_instance(UI_Handler.widgets.Widget,"orderToInventory")
+    orderToInventory.bind("<Button-1>", lambda event, newMenu="inventorymenuFrame": change_menu(newMenu))
 
 def change_menu(newMenuName):
-    print(newMenuName)
+    UI_Handler.change_menu(newMenuName)
 
 main()
