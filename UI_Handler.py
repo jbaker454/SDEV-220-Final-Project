@@ -112,5 +112,3 @@ def order_menu_UI(window):
            name="orderAddButton", parent=orderMenuFrame, size=[10,2], 
            config=widgets.Config.getCustomConfigByName(widgets.Config,"Yellow"), **{"text":"Add Order"})
     orderAddButton.place(x=450,y=485)
-
-main_UI()

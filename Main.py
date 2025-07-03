@@ -21,13 +21,14 @@ class Data_Reciever ():
     pass
 
 def main():
-    """main function for program start"""
+    """main function for window and program start"""
+    UI_Handler.main_UI()
     threading.Thread(target=start_asycronous_thread()).start()
     window = UI_Handler.widgets.Widget.get_instance(UI_Handler.widgets.Widget,"Wonkas Chocolate")
     window.mainloop()
 
 def start_asycronous_thread():
-    """set up for seperate thread"""
+    """set up for seperate thread for program"""
     loop = asyncio.new_event_loop()
     asyncio.set_event_loop(loop)
     loop.run_until_complete(event_main())
@@ -37,7 +38,8 @@ async def event_main():
     """an asyncronous funtion for events"""
     UI_Event_Reciever.bind_events()
 
-main()
-
 def func():
     pass
+
+main()
+
