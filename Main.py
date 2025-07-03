@@ -20,9 +20,6 @@ class Data_Publisher ():
 class Data_Reciever ():
     pass
 
-def func():
-    pass
-
 def main():
     """main function for program start"""
     threading.Thread(target=start_asycronous_thread()).start()
@@ -41,3 +38,6 @@ async def event_main():
     UI_Event_Reciever.bind_events()
 
 main()
+
+def func():
+    pass
