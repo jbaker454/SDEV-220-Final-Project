@@ -1,9 +1,13 @@
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
-from rest_framework import status
-from .models import User, Book
-from .serializers import UserSerializer, BookSerializer
+from rest_framework import status, viewsets
+from .models import User, Product
+from .serializers import UserSerializer, BookSerializer, ProductSerializer
 from django.shortcuts import get_object_or_404
+
+class ProductViewSet(viewsets.ModelViewSet):
+    queryset = Product.objects.all()
+    serializer_class = ProductSerializer
 
 @api_view(['GET', 'POST'])
 def user_list(request):
