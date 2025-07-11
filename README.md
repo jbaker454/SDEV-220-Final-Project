@@ -32,8 +32,10 @@ orders involve outgoing resources types with certian amounts along with the abil
 
 # Endpoints
 
-# GET /products - list candies/inventory
-# POST /products - add new Wonka candies
-# PUT /products/{id} - update stock levels
-# DELETE /products/{id} - remove bad products
-# POST /transactions - record stock movements
+```
+GET /products - list candies/inventory
+POST /products - add new Wonka candies
+PUT /products/{id} - update stock levels
+DELETE /products/{id} - remove bad products
+POST /transactions - record stock movements
+```
