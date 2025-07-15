@@ -11,7 +11,7 @@ const routes = [
   { path: '/Inventory', component: Inventory },
   { path: '/Shipments', component: Shipments },
   { path: '/Processes', component: Processes },
-  { path: '/Orders', component: Orders }
+  { path: '/Orders', component: Orders },
 ]
 
 const router = createRouter({

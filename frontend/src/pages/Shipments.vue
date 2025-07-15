@@ -1,4 +1,4 @@
-<!-- src/pages/Home.vue -->
+<!-- src/pages -->
 
 <script setup lang="ts">
   import Shipment_Component from '@/components/Shipment_Component.vue';

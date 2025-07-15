@@ -1,4 +1,4 @@
-<!-- src/pages/Home.vue -->
+<!-- src/pages -->
 
 <script setup lang="ts">
   import Order_Component from '@/components/Order_Component.vue';

@@ -1,10 +1,10 @@
 <!-- src/components -->
 <template>
-  <div class="resource-componentframe">
+  <div class="inventory-componentframe">
     <h1>Current Resources</h1>
   </div>
 </template>
 
 <style scoped>
-.resource-componentframe { border: 1px solid #bbb; }
+.inventory-componentframe { border: 1px solid #bbb; }
 </style>

@@ -1,4 +1,4 @@
-<!-- src/pages/Home.vue -->
+<!-- src/pages -->
 
 <script setup lang="ts">
   import Process_Component from '@/components/Process_Component.vue';
