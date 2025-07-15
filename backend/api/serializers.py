@@ -1,23 +1,9 @@
 from rest_framework import serializers
-from .models import User, Product, Item, Shipment, Process, Order
+from .models import Resource, Shipment, Process, Order, Location, Transaction
 
-class UserSerializer(serializers.ModelSerializer):
+class ResourceSerializer(serializers.ModelSerializer):
     class Meta:
-        model = User
-        fields = '__all__'
-
-class BookSerializer(serializers.ModelSerializer):
-    class Meta:
-        fields = '__all__'
-
-class ProductSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Product
-        fields = '__all__'
-
-class ItemSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Item
+        model = Resource
         fields = '__all__'
 
 class ShipmentSerializer(serializers.ModelSerializer):
@@ -33,4 +19,14 @@ class ProcessSerializer(serializers.ModelSerializer):
 class OrderSerializer(serializers.ModelSerializer):
     class Meta:
         model = Order
+        fields = '__all__'
+
+class LocationSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Location
+        fields = '__all__'
+
+class TransactionSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Transaction
         fields = '__all__'
