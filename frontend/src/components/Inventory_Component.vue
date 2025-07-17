@@ -45,7 +45,7 @@ onMounted(() => {
     <div v-if="error" style="color:red">Error: {{ error }}</div>
     <ul v-if="resources.length">
       <li v-for="resource in resources" :key="resource.id">
-        {{ resource.name }} - {{ resource.description }}
+        {{ resource.name }} - {{ resource.quantity }}
       </li>
     </ul>
     <div v-else>No resources found.</div>
