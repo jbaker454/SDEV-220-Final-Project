@@ -1,26 +1,48 @@
 <!-- src/components -->
 <script setup lang="ts">
+  import { ref, type DefineComponent } from 'vue'
+
   import Shipment_Component from '@/components/Shipment_Component.vue';
   import Process_Component from '@/components/Process_Component.vue';
   import Order_Component from '@/components/Order_Component.vue';
-  import Resource_Component from '@/components/Resource_Component.vue';
+  import Resource_Component from '@/components/Inventory_Component.vue';
+
+  type ComponentType = DefineComponent<{}, {}, any>
+
+  const componentMap = {
+    shipments: Shipment_Component,
+    processes: Process_Component,
+    orders: Order_Component,
+    resources: Resource_Component,
+  } satisfies Record<string, ComponentType>
+
+  const currentComponent = ref<ComponentType>(componentMap.shipments)
+
+  type ComponentKey = keyof typeof componentMap
+  const currentname = ref<ComponentKey>('shipments')
+
+  function setComponent(name: keyof typeof componentMap) {
+    currentComponent.value = componentMap[name]
+    currentname.value = name
+  }
+
 </script>
 
 <template>
   <div class="component-frame">
     <div class="component-choice-frame">
-      <h3 class="component-name">Shipments</h3>
+      <h3 class="component-name">{{ currentname }}</h3>
       <div class="component-menu-frame">
         <h6>choose view</h6>
         <ul class="component-menu">
-          <li><button class="scroll-button">Resources</button></li>
-          <li><button class="scroll-button">Shipments</button></li>
-          <li><button class="scroll-button">Processes</button></li>
-          <li><button class="scroll-button">Orders</button></li>
+          <li><button @click="setComponent('resources')" class="scroll-button">Resources</button></li>
+          <li><button @click="setComponent('shipments')" class="scroll-button">Shipments</button></li>
+          <li><button @click="setComponent('processes')" class="scroll-button">Processes</button></li>
+          <li><button @click="setComponent('orders')" class="scroll-button">Orders</button></li>
         </ul>
       </div>
-    </div>
-    <Shipment_Component/>
+    </div id="component-container">
+    <component :is="currentComponent" />
   </div>
 </template>
 
