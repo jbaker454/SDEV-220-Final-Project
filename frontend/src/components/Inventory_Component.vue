@@ -13,7 +13,7 @@ interface Resource {
   description: string
   quantity: number
   received_date: string
-  location: number | Location
+  location: string | null
 }
 
 const resources = ref<Resource[]>([])
