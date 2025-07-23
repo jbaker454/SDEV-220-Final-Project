@@ -2,10 +2,10 @@
 <script setup lang="ts">
   import { ref, type DefineComponent } from 'vue'
 
-  import Shipment_Component from '@/components/Shipment_Component.vue';
-  import Process_Component from '@/components/Process_Component.vue';
-  import Order_Component from '@/components/Order_Component.vue';
-  import Resource_Component from '@/components/Inventory_Component.vue';
+  import Shipment_Component from '@/components/Views/Shipment_View.vue';
+  import Process_Component from '@/components/Views/Process_View.vue';
+  import Order_Component from '@/components/Views/Order_View.vue';
+  import Resource_Component from '@/components/Views/Inventory_View.vue';
 
   type ComponentType = DefineComponent<{}, {}, any>
 

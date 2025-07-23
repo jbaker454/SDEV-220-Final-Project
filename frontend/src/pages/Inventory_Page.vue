@@ -1,20 +1,20 @@
 <!-- src/pages -->
 
 <script setup lang="ts">
-  import Process_Component from '@/components/Process_Component.vue';
+  import Inventory_Component from '@/components/Views/Inventory_View.vue';
 </script>
 
 <template>
   <div>
-    <h1>Processes Page</h1>
+    <h1>Inventory Page</h1>
   </div>
   
 
   <div class="row">
-    <div class = process-update-mainframe>
-      <h2>update process</h2>
+    <div class = inventory-update-mainframe>
+      <h2>update inventory</h2>
     </div>
-    <Process_Component  class="panel" />
+    <Inventory_Component class="panel" />
   </div>
 </template>
 
@@ -23,7 +23,7 @@
     display: flex;          
   }
 
-  .process-update-mainframe {
+  .inventory-update-mainframe {
     flex: 2 1 0;
     border: 2px solid #555; 
     box-sizing: border-box;

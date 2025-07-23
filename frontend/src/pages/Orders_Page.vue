@@ -1,7 +1,7 @@
 <!-- src/pages -->
 
 <script setup lang="ts">
-  import Order_Component from '@/components/Order_Component.vue';
+  import Order_Component from '@/components/Views/Order_View.vue';
 </script>
 
 <template>

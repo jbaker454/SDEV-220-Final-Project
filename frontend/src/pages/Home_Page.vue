@@ -1,6 +1,6 @@
 <!-- src/pages -->
 <script setup lang="ts">
-  import Component_Display from '@/components/Component_Display.vue';
+  import Component_Display from '@/components/Views/View_Display.vue';
 </script>
 
 <template>

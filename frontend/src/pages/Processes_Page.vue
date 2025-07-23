@@ -1,20 +1,20 @@
 <!-- src/pages -->
 
 <script setup lang="ts">
-  import Shipment_Component from '@/components/Shipment_Component.vue';
+  import Process_Component from '@/components/Views/Process_view.vue';
 </script>
 
 <template>
   <div>
-    <h1>Shipments Page</h1>
+    <h1>Processes Page</h1>
   </div>
   
 
   <div class="row">
-    <div class = shipment-update-mainframe>
-      <h2>update shipment</h2>
+    <div class = process-update-mainframe>
+      <h2>update process</h2>
     </div>
-    <Shipment_Component class="panel" />
+    <Process_Component  class="panel" />
   </div>
 </template>
 
@@ -23,7 +23,7 @@
     display: flex;          
   }
 
-  .shipment-update-mainframe {
+  .process-update-mainframe {
     flex: 2 1 0;
     border: 2px solid #555; 
     box-sizing: border-box;
