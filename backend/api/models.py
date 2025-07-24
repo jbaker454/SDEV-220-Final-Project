@@ -6,12 +6,18 @@ class Item(models.Model):
     description = models.TextField(blank=True)
     quantity = models.IntegerField(default=0)
 
+    def __str__(self):
+        return self.name
+
 
 class Shipment(models.Model):
     item = models.ForeignKey(Item, on_delete=models.CASCADE)
     quantity = models.IntegerField()
     type = models.CharField(max_length=10, choices=[('IN', 'Incoming'), ('OUT', 'Outgooing')])
     date = models.TimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"{self.type} {self.quantity} of {self.item}"
 
 class Process(models.Model):
     name = models.CharField(max_length=100)
@@ -25,12 +31,18 @@ class Process(models.Model):
             ],
             default='pending'
         )
+    
+    def __str__(self):
+        return f"{self.name} ({self.status})"
 
 class Order(models.Model):
     item = models.ForeignKey(Item, on_delete=models.CASCADE)
     quantity = models.IntegerField()
     date = models.DateTimeField(auto_now_add=True)
     status = models.CharField(max_length=20, default="processing")
+
+    def __str__(self):
+        return f"Order of {self.quantity} {self.item.name} on ({self.status})"
 
 class Location(models.Model):
     name = models.CharField(max_length=100, unique=True)
