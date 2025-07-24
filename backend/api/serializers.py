@@ -1,4 +1,5 @@
 from rest_framework import serializers
+<<<<<<< HEAD
 from .models import User, Product, Item, Shipment, Process, Order, Location, Transaction
 
 class UserSerializer(serializers.ModelSerializer):
@@ -20,6 +21,14 @@ class ItemSerializer(serializers.ModelSerializer):
 
     def get_str_representation(self, obj):
         return str(obj)
+=======
+from .models import Resource, Shipment, Process, Order, Location, Transaction
+
+class ResourceSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Resource
+        fields = '__all__'
+>>>>>>> 44aa1c70a9aa4ad66f463bbac37093c14572f3c6
 
 class ShipmentSerializer(serializers.ModelSerializer):
     str_representation = serializers.SerializerMethodField()
@@ -46,6 +55,7 @@ class OrderSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Order
+<<<<<<< HEAD
         fields = ['id', 'item', 'quantity', 'date', 'status', 'str_representation']
 
     def get_str_representation(self, obj):
@@ -80,3 +90,16 @@ class TransactionSerializer(serializers.ModelSerializer):
 
     def get_str_representation(self, obj):
         return str(obj)
+=======
+        fields = '__all__'
+
+class LocationSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Location
+        fields = '__all__'
+
+class TransactionSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Transaction
+        fields = '__all__'
+>>>>>>> 44aa1c70a9aa4ad66f463bbac37093c14572f3c6
