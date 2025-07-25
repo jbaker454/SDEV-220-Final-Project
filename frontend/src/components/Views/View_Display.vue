@@ -1,4 +1,4 @@
-<!-- src/components -->
+<!-- src/components/Views -->
 <script setup lang="ts">
   import { ref, type DefineComponent } from 'vue'
 

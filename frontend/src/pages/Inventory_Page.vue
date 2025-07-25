@@ -1,7 +1,8 @@
 <!-- src/pages -->
 
 <script setup lang="ts">
-  import Inventory_Component from '@/components/Views/Inventory_View.vue';
+  import Inventory_View_Component from '@/components/Views/Inventory_View.vue';
+  import Inventory_Modify_Component from '@/components/Modifies/Inventory_Modify.vue';
 </script>
 
 <template>
@@ -11,10 +12,8 @@
   
 
   <div class="row">
-    <div class = inventory-update-mainframe>
-      <h2>update inventory</h2>
-    </div>
-    <Inventory_Component class="panel" />
+    <Inventory_Modify_Component class="inventory-update-mainframe" />
+    <Inventory_View_Component class="panel" />
   </div>
 </template>
 
