@@ -14,6 +14,8 @@ interface Resource {
   quantity: number
   received_date: string
   location: string | null
+
+  str_representation: string
 }
 
 const resources = ref<Resource[]>([])
@@ -45,7 +47,7 @@ onMounted(() => {
     <div v-if="error" style="color:red">Error: {{ error }}</div>
     <ul v-if="resources.length">
       <li v-for="resource in resources" :key="resource.id">
-        {{ resource.name }} - {{ resource.quantity }}
+        {{ resource.str_representation }}
       </li>
     </ul>
     <div v-else>No resources found.</div>
