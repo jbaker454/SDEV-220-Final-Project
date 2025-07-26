@@ -1,40 +1,10 @@
 <!-- src/components/Views -->
 <script setup lang="ts">
-import { ref, onMounted } from 'vue'
+import { onMounted } from 'vue'
 
-interface Location {
-  id: number | string
-  name: string
-}
+import { useInterface } from '@/api/useInterface'
 
-interface Resource {
-  id: number | string
-  name: string
-  description: string
-  quantity: number
-  received_date: string
-  location: string | null
-
-  str_representation: string
-}
-
-const resources = ref<Resource[]>([])
-const error = ref<string | null>(null)
-
-async function fetchResources(): Promise<void> {
-  try {
-    const response = await fetch('http://localhost:8000/api/resources/')
-    if (!response.ok) throw new Error('Network response was not ok')
-    const data: Resource[] = await response.json()
-    resources.value = data
-  } catch (err) {
-    if (err instanceof Error) {
-      error.value = err.message
-    } else {
-      error.value = String(err)
-    }
-  }
-}
+const { resources, error, fetchResources} = useInterface()
 
 onMounted(() => {
   fetchResources()
