@@ -1,6 +1,7 @@
 from rest_framework import serializers
-<<<<<<< HEAD
-from .models import User, Product, Item, Shipment, Process, Order, Location, Transaction
+from django.contrib.auth.models import User
+from .models import Resource, Shipment, Process, Order, Location, Transaction
+
 
 class UserSerializer(serializers.ModelSerializer):
     str_representation = serializers.SerializerMethodField()
@@ -12,54 +13,50 @@ class UserSerializer(serializers.ModelSerializer):
     def get_str_representation(self, obj):
         return str(obj)
 
-class ItemSerializer(serializers.ModelSerializer):
+
+class ResourceSerializer(serializers.ModelSerializer):
     str_representation = serializers.SerializerMethodField()
 
     class Meta:
-        model = Item
-        fields = ['id', 'name', 'description', 'quantity', 'str_representation']
+        model = Resource
+        fields = ['id', 'name', 'description', 'quantity', 'received_date', 'location', 'str_representation']
 
     def get_str_representation(self, obj):
         return str(obj)
-=======
-from .models import Resource, Shipment, Process, Order, Location, Transaction
 
-class ResourceSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Resource
-        fields = '__all__'
->>>>>>> 44aa1c70a9aa4ad66f463bbac37093c14572f3c6
 
 class ShipmentSerializer(serializers.ModelSerializer):
     str_representation = serializers.SerializerMethodField()
 
     class Meta:
         model = Shipment
-        fields = ['id', 'item', 'quantity', 'type', 'date', 'str_representation']
+        fields = ['id', 'resource', 'quantity', 'shipment_type', 'date', 'completed', 'str_representation']
 
     def get_str_representation(self, obj):
         return str(obj)
+
 
 class ProcessSerializer(serializers.ModelSerializer):
     str_representation = serializers.SerializerMethodField()
 
     class Meta:
         model = Process
-        fields = ['id', 'name', 'description', 'item', 'status', 'str_representation']
+        fields = ['id', 'name', 'description', 'resource', 'items_per_second', 'status', 'str_representation']
 
     def get_str_representation(self, obj):
         return str(obj)
+
 
 class OrderSerializer(serializers.ModelSerializer):
     str_representation = serializers.SerializerMethodField()
 
     class Meta:
         model = Order
-<<<<<<< HEAD
-        fields = ['id', 'item', 'quantity', 'date', 'status', 'str_representation']
+        fields = ['id', 'resource', 'quantity', 'date', 'status', 'str_representation']
 
     def get_str_representation(self, obj):
         return str(obj)
+
 
 class LocationSerializer(serializers.ModelSerializer):
     str_representation = serializers.SerializerMethodField()
@@ -71,35 +68,13 @@ class LocationSerializer(serializers.ModelSerializer):
     def get_str_representation(self, obj):
         return str(obj)
 
-class ProductSerializer(serializers.ModelSerializer):
-    str_representation = serializers.SerializerMethodField()
-
-    class Meta:
-        model = Product
-        fields = ['id', 'name', 'description', 'quantity', 'location', 'str_representation']
-
-    def get_str_representation(self, obj):
-        return str(obj)
 
 class TransactionSerializer(serializers.ModelSerializer):
     str_representation = serializers.SerializerMethodField()
 
     class Meta:
         model = Transaction
-        fields = ['id', 'product', 'quantity_change', 'timestamp', 'reason', 'str_representation']
+        fields = ['id', 'resource', 'quantity_change', 'timestamp', 'reason', 'str_representation']
 
     def get_str_representation(self, obj):
         return str(obj)
-=======
-        fields = '__all__'
-
-class LocationSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Location
-        fields = '__all__'
-
-class TransactionSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Transaction
-        fields = '__all__'
->>>>>>> 44aa1c70a9aa4ad66f463bbac37093c14572f3c6
