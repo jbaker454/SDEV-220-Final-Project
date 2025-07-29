@@ -1,5 +1,12 @@
 //src/api/use_interface
 import { ref } from 'vue'
+import { z } from "zod";
+
+import { ResourceFormData } from "@/schemas/resource_form_scema";
+import { OrderFormData } from "@/schemas/order_form_scema";
+import { ProcessFormData } from "@/schemas/process_form_scema";
+import { ShipmentFormData } from "@/schemas/shipment_form_scema";
+
 
 export interface Location {
   id: number | string
@@ -36,7 +43,7 @@ export interface Process {
   str_representation: string
 }
 
-interface Shipment {
+export interface Shipment {
   id: number | string
   completed: boolean
   date: string
@@ -62,6 +69,20 @@ async function fetchResources(): Promise<void> {
   }
 }
 
+export async function submitResource(data: ResourceFormData) {
+  const response = await fetch("http://localhost:8000/api/resources/", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(data),
+  });
+
+  if (!response.ok) throw new Error("Failed to submit resource");
+  const responseData = await response.json();
+  return responseData.id;
+}
+
 async function fetchOrders(): Promise<void> {
   try {
     const response = await fetch('http://localhost:8000/api/orders/')
@@ -70,6 +91,20 @@ async function fetchOrders(): Promise<void> {
   } catch (err) {
     error.value = err instanceof Error ? err.message : String(err)
   }
+}
+
+export async function submitOrder(data: OrderFormData) {
+  const response = await fetch("http://localhost:8000/api/orders/", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(data),
+  });
+
+  if (!response.ok) throw new Error("Failed to submit order");
+  const responseData = await response.json();
+  return responseData.id;
 }
 
 async function fetchProcesses(): Promise<void> {
@@ -83,6 +118,20 @@ async function fetchProcesses(): Promise<void> {
   }
 }
 
+export async function submitProcess(data: ProcessFormData) {
+  const response = await fetch("http://localhost:8000/api/processes/", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(data),
+  });
+
+  if (!response.ok) throw new Error("Failed to submit process");
+  const responseData = await response.json();
+  return responseData.id;
+}
+
 async function fetchShipments(): Promise<void> {
   try {
     const response = await fetch('http://localhost:8000/api/shipments/')
@@ -94,6 +143,20 @@ async function fetchShipments(): Promise<void> {
   }
 }
 
+export async function submitShipment(data: ProcessFormData) {
+  const response = await fetch("http://localhost:8000/api/shipments/", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(data),
+  });
+
+  if (!response.ok) throw new Error("Failed to submit shipment");
+  const responseData = await response.json();
+  return responseData.id;
+}
+
 export function useInterface() {
   return {
     resources,
@@ -102,8 +165,12 @@ export function useInterface() {
     shipments,
     error,
     fetchResources,
+    submitResource,
     fetchOrders,
+    submitOrder,
     fetchProcesses,
+    submitProcess,
     fetchShipments,
+    submitShipment,
   }
 }
