@@ -1,7 +1,7 @@
 <!-- src/components/Forms/Inventory_Form.vue -->
 <script setup lang="ts">
 import { reactive, ref } from "vue";
-import { resourceFormSchema, ResourceFormData } from "@/schemas/resource_form_scema";
+import { resourceFormSchema, ResourceFormData } from "@/schemas/resource_form_schema";
 import { submitResource } from "@/api/useInterface";
 import { z } from "zod";
 
@@ -36,7 +36,7 @@ function handleSubmit() {
 </script>
 
 <template>
-  <div class="inventory-componentframe">
+  <div class="inventory-component-frame">
     <h1>add resource</h1>
     <form @submit.prevent="handleSubmit">
       <div>
@@ -56,7 +56,7 @@ function handleSubmit() {
       </div>
       <div>
         <label>Received Date:</label>
-        <input v-model="form.received_date" type="text" />
+        <input v-model="form.received_date" type="date" />
         <p v-if="errors.received_date">{{ errors.received_date }}</p>
       </div>
       <button type="submit">Submit</button>
@@ -65,5 +65,5 @@ function handleSubmit() {
 </template>
 
 <style scoped>
-.inventory-componentframe { border: 1px solid #bbb; }
+.inventory-component-frame { border: 1px solid #bbb; }
 </style>

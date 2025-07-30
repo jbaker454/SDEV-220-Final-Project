@@ -4,6 +4,7 @@
 import {type Ref, ref} from 'vue'
 import Shipment_Component from '@/components/Views/Shipment_View.vue';
 import Shipment_Form from '@/components/Forms/Shipment_Form.vue';
+import Shipment_Edit from '@/components/Edits/Shipment_Edit.vue';
 
 const creatingNewShipment : Ref<Boolean> = ref(true)
 </script>
@@ -17,7 +18,8 @@ const creatingNewShipment : Ref<Boolean> = ref(true)
   <div class="row">
     <div>
       <button class="edit-resource" @click="creatingNewShipment = !creatingNewShipment">{{ creatingNewShipment ? 'Edit' : 'Add' }}</button>
-      <Shipment_Form class="shipment-update-mainframe" />
+      <Shipment_Form v-if="creatingNewShipment" class="shipment-update-mainframe" />
+      <Shipment_Edit v-if="!creatingNewShipment" class="shipment-update-mainframe" />
     </div>
     <Shipment_Component class="panel" />
   </div>

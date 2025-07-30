@@ -4,6 +4,7 @@
 import {type Ref, ref} from 'vue'
 import Order_Component from '@/components/Views/Order_View.vue';
 import Order_Form from '@/components/Forms/Order_Form.vue';
+import Order_Edit from '@/components/Edits/Order_Edit.vue';
 
 const creatingNewOrder : Ref<Boolean> = ref(true)
 </script>
@@ -17,7 +18,8 @@ const creatingNewOrder : Ref<Boolean> = ref(true)
   <div class="row">
     <div>
       <button class="edit-order" @click="creatingNewOrder = !creatingNewOrder">{{ creatingNewOrder ? 'Edit' : 'Add' }}</button>
-      <Order_Form class="order-update-mainframe" />
+      <Order_Form v-if="creatingNewOrder" class="order-update-mainframe" />
+      <Order_Edit v-if="!creatingNewOrder" class="order-update-mainframe" />
     </div>
     <Order_Component class="panel" />
   </div>

@@ -1,7 +1,7 @@
 <!-- src/components/Forms/Inventory_Form.vue -->
 <script setup lang="ts">
 import { reactive, ref } from "vue";
-import { orderFormSchema, OrderFormData } from "@/schemas/order_form_scema";
+import { orderFormSchema, OrderFormData } from "@/schemas/order_form_schema";
 import { useInterface } from "@/api/useInterface";
 const { resources, error, submitOrder } = useInterface()
 import { z } from "zod";
@@ -37,7 +37,7 @@ function handleSubmit() {
 </script>
 
 <template>
-  <div class="inventory-componentframe">
+  <div class="inventory-component-frame">
     <h1>add resource</h1>
     <form @submit.prevent="handleSubmit">
       <div>
@@ -77,5 +77,5 @@ function handleSubmit() {
 </template>
 
 <style scoped>
-.inventory-componentframe { border: 1px solid #bbb; }
+.inventory-component-frame { border: 1px solid #bbb; }
 </style>

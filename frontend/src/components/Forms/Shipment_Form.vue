@@ -1,7 +1,7 @@
 <!-- src/components/Forms/Process_Form.vue -->
 <script setup lang="ts">
 import { reactive, ref } from "vue";
-import { shipmentFormSchema, ShipmentFormData } from "@/schemas/shipment_form_scema";
+import { shipmentFormSchema, ShipmentFormData } from "@/schemas/shipment_form_schema";
 import { useInterface } from "@/api/useInterface";
 const { resources, error, submitShipment } = useInterface()
 import { z } from "zod";
@@ -13,7 +13,7 @@ const form = reactive<ShipmentFormData>({
   quantity: 1,
   date: "",
   resource: null,
-  status: 'Incoming',
+  shipment_type: 'Incoming',
 });
 
 function handleSubmit() {
@@ -38,7 +38,7 @@ function handleSubmit() {
 </script>
 
 <template>
-  <div class="inventory-componentframe">
+  <div class="inventory-component-frame">
     <h1>add resource</h1>
     <form @submit.prevent="handleSubmit">
       <div>
@@ -65,16 +65,16 @@ function handleSubmit() {
       </div>
       <div>
         <label>Date:</label>
-        <input v-model="form.date" type="text" />
+        <input v-model="form.date" type="date" />
         <p v-if="errors.date">{{ errors.date }}</p>
       </div>
       <div>
         <label>Status:</label>
-        <select v-model="form.status">
+        <select v-model="form.shipment_type">
           <option value="pending">Pending</option>
           <option value="done">Done</option>
         </select>
-        <p v-if="errors.status">{{ errors.status }}</p>
+        <p v-if="errors.shipment_type">{{ errors.shipment_type }}</p>
       </div>
       <button type="submit">Submit</button>
     </form>
@@ -82,5 +82,5 @@ function handleSubmit() {
 </template>
 
 <style scoped>
-.inventory-componentframe { border: 1px solid #bbb; }
+.inventory-component-frame { border: 1px solid #bbb; }
 </style>

@@ -2,10 +2,10 @@
 import { ref } from 'vue'
 import { z } from "zod";
 
-import { ResourceFormData } from "@/schemas/resource_form_scema";
-import { OrderFormData } from "@/schemas/order_form_scema";
-import { ProcessFormData } from "@/schemas/process_form_scema";
-import { ShipmentFormData } from "@/schemas/shipment_form_scema";
+import { ResourceFormData } from "@/schemas/resource_form_schema";
+import { OrderFormData } from "@/schemas/order_form_schema";
+import { ProcessFormData } from "@/schemas/process_form_schema";
+import { ShipmentFormData } from "@/schemas/shipment_form_schema";
 
 
 export interface Location {
@@ -83,6 +83,22 @@ export async function submitResource(data: ResourceFormData) {
   return responseData.id;
 }
 
+export async function updateResource(resource: Resource): Promise<Resource> {
+  const response = await fetch(`http://localhost:8000/api/resources/${resource.id}/`, {
+    method: 'PUT', // or PATCH if partial update
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(resource),
+  })
+
+  if (!response.ok) {
+    throw new Error(`Failed to update resource ${resource.id}`)
+  }
+
+  return await response.json()
+}
+
 async function fetchOrders(): Promise<void> {
   try {
     const response = await fetch('http://localhost:8000/api/orders/')
@@ -105,6 +121,22 @@ export async function submitOrder(data: OrderFormData) {
   if (!response.ok) throw new Error("Failed to submit order");
   const responseData = await response.json();
   return responseData.id;
+}
+
+export async function updateOrder(order: Order): Promise<Order> {
+  const response = await fetch(`http://localhost:8000/api/orders/${order.id}/`, {
+    method: 'PUT', // or PATCH if partial update
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(order),
+  })
+
+  if (!response.ok) {
+    throw new Error(`Failed to update resource ${order.id}`)
+  }
+
+  return await response.json()
 }
 
 async function fetchProcesses(): Promise<void> {
@@ -132,6 +164,22 @@ export async function submitProcess(data: ProcessFormData) {
   return responseData.id;
 }
 
+export async function updateProcess(process: Process): Promise<Process> {
+  const response = await fetch(`http://localhost:8000/api/processes/${process.id}/`, {
+    method: 'PUT', // or PATCH if partial update
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(process),
+  })
+
+  if (!response.ok) {
+    throw new Error(`Failed to update resource ${process.id}`)
+  }
+
+  return await response.json()
+}
+
 async function fetchShipments(): Promise<void> {
   try {
     const response = await fetch('http://localhost:8000/api/shipments/')
@@ -157,6 +205,22 @@ export async function submitShipment(data: ShipmentFormData) {
   return responseData.id;
 }
 
+export async function updateShipment(shipment: Shipment): Promise<Shipment> {
+  const response = await fetch(`http://localhost:8000/api/shipments/${shipment.id}/`, {
+    method: 'PUT', // or PATCH if partial update
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(shipment),
+  })
+
+  if (!response.ok) {
+    throw new Error(`Failed to update resource ${shipment.id}`)
+  }
+
+  return await response.json()
+}
+
 export function useInterface() {
   return {
     resources,
@@ -166,11 +230,18 @@ export function useInterface() {
     error,
     fetchResources,
     submitResource,
+    updateResource,
+
     fetchOrders,
     submitOrder,
+    updateOrder,
+
     fetchProcesses,
     submitProcess,
+    updateProcess,
+
     fetchShipments,
     submitShipment,
+    updateShipment,
   }
 }

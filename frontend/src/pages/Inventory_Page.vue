@@ -4,6 +4,7 @@
 import {type Ref, ref} from 'vue'
 import Inventory_View from '@/components/Views/Inventory_View.vue';
 import Inventory_Form from '@/components/Forms/Inventory_Form.vue';
+import Inventory_Edit from '@/components/Edits/Inventory_Edit.vue';
 
 const creatingNewResource : Ref<Boolean> = ref(true)
 </script>
@@ -12,12 +13,11 @@ const creatingNewResource : Ref<Boolean> = ref(true)
   <div>
     <h1>Inventory Page</h1>
   </div>
-  
-
   <div class="row">
     <div>
       <button class="edit-resource" @click="creatingNewResource = !creatingNewResource">{{ creatingNewResource ? 'Edit' : 'Add' }}</button>
-      <Inventory_Form class="inventory-update-mainframe" />
+      <Inventory_Form v-if="creatingNewResource" class="inventory-update-mainframe" />
+      <Inventory_Edit v-if="!creatingNewResource" class="inventory-update-mainframe" />
     </div>
     <Inventory_View class="panel" />
   </div>

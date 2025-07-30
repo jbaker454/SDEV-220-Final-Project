@@ -1,7 +1,7 @@
 <!-- src/components/Forms/Process_Form.vue -->
 <script setup lang="ts">
 import { reactive, ref } from "vue";
-import { processFormSchema, ProcessFormData } from "@/schemas/process_form_scema";
+import { processFormSchema, ProcessFormData } from "@/schemas/process_form_schema";
 import { useInterface } from "@/api/useInterface";
 const { resources, error, submitProcess } = useInterface()
 import { z } from "zod";
@@ -10,7 +10,7 @@ const errors = ref<Partial<Record<keyof ProcessFormData, string[]>>>({});
 
 const form = reactive<ProcessFormData>({
   name: "",
-  quantity: 1,
+  items_per_second: 1,
   date: "",
   resource: null,
   status: 'pending',
@@ -38,7 +38,7 @@ function handleSubmit() {
 </script>
 
 <template>
-  <div class="inventory-componentframe">
+  <div class="inventory-component-frame">
     <h1>add resource</h1>
     <form @submit.prevent="handleSubmit">
       <div>
@@ -60,12 +60,12 @@ function handleSubmit() {
       </div>
       <div>
         <label>Quantity:</label>
-        <input v-model="form.quantity" type="number" />
-        <p v-if="errors.quantity">{{ errors.quantity }}</p>
+        <input v-model="form.items_per_second" type="number" />
+        <p v-if="errors.items_per_second">{{ errors.items_per_second }}</p>
       </div>
       <div>
         <label>Date:</label>
-        <input v-model="form.date" type="text" />
+        <input v-model="form.date" type="date" />
         <p v-if="errors.date">{{ errors.date }}</p>
       </div>
       <div>
@@ -82,5 +82,5 @@ function handleSubmit() {
 </template>
 
 <style scoped>
-.inventory-componentframe { border: 1px solid #bbb; }
+.inventory-component-frame { border: 1px solid #bbb; }
 </style>

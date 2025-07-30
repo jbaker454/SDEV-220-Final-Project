@@ -14,10 +14,6 @@
   </div>
 </template>
 
-<script setup lang="ts">
-
-</script>
-
 <style>
     .row {
       display: flex;
