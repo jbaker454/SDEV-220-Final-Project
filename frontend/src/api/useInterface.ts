@@ -143,7 +143,7 @@ async function fetchShipments(): Promise<void> {
   }
 }
 
-export async function submitShipment(data: ProcessFormData) {
+export async function submitShipment(data: ShipmentFormData) {
   const response = await fetch("http://localhost:8000/api/shipments/", {
     method: "POST",
     headers: {

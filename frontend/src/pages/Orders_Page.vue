@@ -1,7 +1,11 @@
 <!-- src/pages -->
 
 <script setup lang="ts">
-  import Order_Component from '@/components/Views/Order_View.vue';
+import {type Ref, ref} from 'vue'
+import Order_Component from '@/components/Views/Order_View.vue';
+import Order_Form from '@/components/Forms/Order_Form.vue';
+
+const creatingNewOrder : Ref<Boolean> = ref(true)
 </script>
 
 <template>
@@ -11,10 +15,11 @@
   
 
   <div class="row">
-    <div class = order-update-mainframe>
-      <h2>update order</h2>
+    <div>
+      <button class="edit-order" @click="creatingNewOrder = !creatingNewOrder">{{ creatingNewOrder ? 'Edit' : 'Add' }}</button>
+      <Order_Form class="order-update-mainframe" />
     </div>
-    <Order_Component    class="panel" />
+    <Order_Component class="panel" />
   </div>
 </template>
 

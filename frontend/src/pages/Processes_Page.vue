@@ -1,7 +1,11 @@
 <!-- src/pages -->
 
 <script setup lang="ts">
-  import Process_Component from '@/components/Views/Process_view.vue';
+import {type Ref, ref} from 'vue'
+import Process_Component from '@/components/Views/Process_View.vue';
+import Process_Form from '@/components/Forms/Process_Form.vue';
+
+const creatingNewProcess : Ref<Boolean> = ref(true)
 </script>
 
 <template>
@@ -11,8 +15,9 @@
   
 
   <div class="row">
-    <div class = process-update-mainframe>
-      <h2>update process</h2>
+    <div>
+      <button class="edit-resource" @click="creatingNewProcess = !creatingNewProcess">{{ creatingNewProcess ? 'Edit' : 'Add' }}</button>
+      <Process_Form class="process-update-mainframe" />
     </div>
     <Process_Component  class="panel" />
   </div>

@@ -1,7 +1,11 @@
 <!-- src/pages -->
 
 <script setup lang="ts">
-  import Shipment_Component from '@/components/Views/Shipment_View.vue';
+import {type Ref, ref} from 'vue'
+import Shipment_Component from '@/components/Views/Shipment_View.vue';
+import Shipment_Form from '@/components/Forms/Shipment_Form.vue';
+
+const creatingNewShipment : Ref<Boolean> = ref(true)
 </script>
 
 <template>
@@ -11,8 +15,9 @@
   
 
   <div class="row">
-    <div class = shipment-update-mainframe>
-      <h2>update shipment</h2>
+    <div>
+      <button class="edit-resource" @click="creatingNewShipment = !creatingNewShipment">{{ creatingNewShipment ? 'Edit' : 'Add' }}</button>
+      <Shipment_Form class="shipment-update-mainframe" />
     </div>
     <Shipment_Component class="panel" />
   </div>
