@@ -1,12 +1,17 @@
 <!-- src/pages -->
 
 <script setup lang="ts">
+<<<<<<< Updated upstream
 import {type Ref, ref} from 'vue'
 import Inventory_View from '@/components/Views/Inventory_View.vue';
 import Inventory_Form from '@/components/Forms/Inventory_Form.vue';
 import Inventory_Edit from '@/components/Edits/Inventory_Edit.vue';
 
 const creatingNewResource : Ref<Boolean> = ref(true)
+=======
+  import Inventory_View_Component from '@/components/Views/Inventory_View.vue';
+  // import Inventory_Modify_Component from '@/components/Modifies/Inventory_Modify.vue';
+>>>>>>> Stashed changes
 </script>
 
 <template>
