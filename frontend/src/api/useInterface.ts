@@ -133,7 +133,7 @@ export async function updateOrder(order: Order): Promise<Order> {
   })
 
   if (!response.ok) {
-    throw new Error(`Failed to update resource ${order.id}`)
+    throw new Error(`Failed to update order ${order.id}`)
   }
 
   return await response.json()
@@ -174,7 +174,7 @@ export async function updateProcess(process: Process): Promise<Process> {
   })
 
   if (!response.ok) {
-    throw new Error(`Failed to update resource ${process.id}`)
+    throw new Error(`Failed to update process ${process.id}`)
   }
 
   return await response.json()
@@ -183,7 +183,7 @@ export async function updateProcess(process: Process): Promise<Process> {
 async function fetchShipments(): Promise<void> {
   try {
     const response = await fetch('http://localhost:8000/api/shipments/')
-    if (!response.ok) throw new Error('Network response was not ok')
+    if (!response.ok) throw new Error('Failed to fetch shipments')
     const data: Shipment[] = await response.json()
     shipments.value = data
   } catch (err) {
@@ -215,7 +215,7 @@ export async function updateShipment(shipment: Shipment): Promise<Shipment> {
   })
 
   if (!response.ok) {
-    throw new Error(`Failed to update resource ${shipment.id}`)
+    throw new Error(`Failed to update shipment ${shipment.id}`)
   }
 
   return await response.json()
