@@ -9,9 +9,9 @@ import { z } from "zod";
 const errors = ref<Partial<Record<keyof ProcessFormData, string[]>>>({});
 
 const form = reactive<ProcessFormData>({
+  id: null,
   name: "",
   items_per_second: 1,
-  date: "",
   resource: null,
   status: 'pending',
 });
@@ -39,7 +39,7 @@ function handleSubmit() {
 
 <template>
   <div class="inventory-component-frame">
-    <h1>add resource</h1>
+    <h1>add process</h1>
     <form @submit.prevent="handleSubmit">
       <div>
         <label>Name:</label>
@@ -52,7 +52,7 @@ function handleSubmit() {
           <option
             v-for="resource in resources"
             :key="resource.id"
-            :value="resource"
+            :value="resource.id"
           >
             {{ resource.name }}
           </option>
@@ -62,11 +62,6 @@ function handleSubmit() {
         <label>Quantity:</label>
         <input v-model="form.items_per_second" type="number" />
         <p v-if="errors.items_per_second">{{ errors.items_per_second }}</p>
-      </div>
-      <div>
-        <label>Date:</label>
-        <input v-model="form.date" type="date" />
-        <p v-if="errors.date">{{ errors.date }}</p>
       </div>
       <div>
         <label>Status:</label>

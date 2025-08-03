@@ -9,57 +9,67 @@ import { ShipmentFormData } from "@/schemas/shipment_form_schema";
 
 
 export interface Location {
-  id: number | string
+  id: number
   name: string
 }
 
 export interface Resource {
-  id: number | string
+  id: number
   name: string
   description: string
   quantity: number
   received_date: string
-  location: string | null
+  location: number | null
   str_representation: string
 }
 
 export interface Order {
-  id: number | string
+  id: number
   quantity: number
   date: string
-  resource: Resource | null
+  resource: number | null
   status: 'processing' | 'completed' | 'cancelled'
   str_representation: string
 }
 
 export interface Process {
-  id: number | string
+  id: number
   name: string
   description: string
   items_per_second: number
-  date: string
-  resource: Resource | null
+  resource: number | null
   status: 'pending' | 'done'
   str_representation: string
 }
 
 export interface Shipment {
-  id: number | string
+  id: number
   completed: boolean
   date: string
   quantity: number
-  resource: Resource | null
-  shipment_type: 'IN' | 'OUT' | 'Incoming' | 'Outgoing'
+  resource: number | null
+  shipment_type: 'IN' | 'OUT'
   str_representation: string
 }
 
+const locations = ref<Location[]>([])
 const resources = ref<Resource[]>([])
 const orders = ref<Order[]>([])
 const processes = ref<Process[]>([])
 const shipments = ref<Shipment[]>([])
 const error = ref<string | null>(null)
 
-async function fetchResources(): Promise<void> {
+export async function fetchLocations(): Promise<void> {
+  try {
+    const response = await fetch('http://localhost:8000/api/locations/')
+    if (!response.ok) throw new Error('Failed to fetch locations')
+    locations.value = await response.json()
+  } catch (err) {
+    error.value = err instanceof Error ? err.message : String(err)
+  }
+}
+
+export async function fetchResources(): Promise<void> {
   try {
     const response = await fetch('http://localhost:8000/api/resources/')
     if (!response.ok) throw new Error('Failed to fetch resources')
@@ -83,17 +93,18 @@ export async function submitResource(data: ResourceFormData) {
   return responseData.id;
 }
 
-export async function updateResource(resource: Resource): Promise<Resource> {
-  const response = await fetch(`http://localhost:8000/api/resources/${resource.id}/`, {
+export async function updateResource(data: ResourceFormData) {
+  console.log(JSON.stringify(data))
+  const response = await fetch(`http://localhost:8000/api/resources/${data.id}/`, {
     method: 'PUT', // or PATCH if partial update
     headers: {
       'Content-Type': 'application/json',
     },
-    body: JSON.stringify(resource),
+    body: JSON.stringify(data),
   })
 
   if (!response.ok) {
-    throw new Error(`Failed to update resource ${resource.id}`)
+    throw new Error(`Failed to update resource ${data}`)
   }
 
   return await response.json()
@@ -123,17 +134,17 @@ export async function submitOrder(data: OrderFormData) {
   return responseData.id;
 }
 
-export async function updateOrder(order: Order): Promise<Order> {
-  const response = await fetch(`http://localhost:8000/api/orders/${order.id}/`, {
+export async function updateOrder(data: OrderFormData) {
+  const response = await fetch(`http://localhost:8000/api/orders/${data.id}/`, {
     method: 'PUT', // or PATCH if partial update
     headers: {
       'Content-Type': 'application/json',
     },
-    body: JSON.stringify(order),
+    body: JSON.stringify(data),
   })
 
   if (!response.ok) {
-    throw new Error(`Failed to update order ${order.id}`)
+    throw new Error(`Failed to update order ${data}`)
   }
 
   return await response.json()
@@ -164,17 +175,17 @@ export async function submitProcess(data: ProcessFormData) {
   return responseData.id;
 }
 
-export async function updateProcess(process: Process): Promise<Process> {
-  const response = await fetch(`http://localhost:8000/api/processes/${process.id}/`, {
+export async function updateProcess(data: ProcessFormData) {
+  const response = await fetch(`http://localhost:8000/api/processes/${data.id}/`, {
     method: 'PUT', // or PATCH if partial update
     headers: {
       'Content-Type': 'application/json',
     },
-    body: JSON.stringify(process),
+    body: JSON.stringify(data),
   })
 
   if (!response.ok) {
-    throw new Error(`Failed to update process ${process.id}`)
+    throw new Error(`Failed to update process ${data.id}`)
   }
 
   return await response.json()
@@ -205,17 +216,17 @@ export async function submitShipment(data: ShipmentFormData) {
   return responseData.id;
 }
 
-export async function updateShipment(shipment: Shipment): Promise<Shipment> {
-  const response = await fetch(`http://localhost:8000/api/shipments/${shipment.id}/`, {
+export async function updateShipment(data: ShipmentFormData) {
+  const response = await fetch(`http://localhost:8000/api/shipments/${data.id}/`, {
     method: 'PUT', // or PATCH if partial update
     headers: {
       'Content-Type': 'application/json',
     },
-    body: JSON.stringify(shipment),
+    body: JSON.stringify(data),
   })
 
   if (!response.ok) {
-    throw new Error(`Failed to update shipment ${shipment.id}`)
+    throw new Error(`Failed to update shipment ${data}`)
   }
 
   return await response.json()
@@ -223,11 +234,14 @@ export async function updateShipment(shipment: Shipment): Promise<Shipment> {
 
 export function useInterface() {
   return {
+    locations,
     resources,
     orders,
     processes,
     shipments,
     error,
+    fetchLocations,
+
     fetchResources,
     submitResource,
     updateResource,

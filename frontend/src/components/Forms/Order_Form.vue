@@ -9,8 +9,8 @@ import { z } from "zod";
 const errors = ref<Partial<Record<keyof OrderFormData, string[]>>>({});
 
 const form = reactive<OrderFormData>({
+  id: null,
   quantity: 1,
-  date: "",
   resource: null,
   status: "processing",
 });
@@ -27,10 +27,12 @@ function handleSubmit() {
     }
 
     errors.value = fieldErrors;
+    console.warn(fieldErrors, form.resource)
     return;
   }
 
   errors.value = {};
+  console.log(JSON.stringify(result.data));
   submitOrder(result.data);
 }
 
@@ -38,7 +40,7 @@ function handleSubmit() {
 
 <template>
   <div class="inventory-component-frame">
-    <h1>add resource</h1>
+    <h1>add orders</h1>
     <form @submit.prevent="handleSubmit">
       <div>
         <label>Quantity:</label>
@@ -46,17 +48,12 @@ function handleSubmit() {
         <p v-if="errors.quantity">{{ errors.quantity }}</p>
       </div>
       <div>
-        <label>Date:</label>
-        <input v-model="form.date" type="date" />
-        <p v-if="errors.date">{{ errors.date }}</p>
-      </div>
-      <div>
         <select v-model="form.resource">
           <option :value="null">Select a resource</option>
           <option
             v-for="resource in resources"
             :key="resource.id"
-            :value="resource"
+            :value="resource.id"
           >
             {{ resource.name }}
           </option>

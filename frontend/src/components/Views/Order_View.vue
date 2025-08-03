@@ -4,16 +4,17 @@ import { onMounted } from 'vue'
 
 import { useInterface } from '@/api/useInterface'
 
-const { orders, error, fetchOrders} = useInterface()
+const { orders, error, fetchOrders, fetchResources} = useInterface()
 
 onMounted(() => {
   fetchOrders()
+  fetchResources()
 })
 </script>
 
 <template>
   <div class="order-componentframe">
-    <h1>Current Resources</h1>
+    <h1>Current orders</h1>
     <div v-if="error" style="color:red">Error: {{ error }}</div>
     <ul v-if="orders.length">
       <li v-for="order in orders" :key="order.id">

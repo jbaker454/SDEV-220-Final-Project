@@ -1,45 +1,82 @@
 <!--src/components/Edits/Process_Edit.vue-->
 <script setup lang="ts">
-import { reactive, ref, type Ref } from "vue";
+import { reactive, ref, type Ref, computed, watch } from "vue";
+import { processFormSchema, ProcessFormData } from "@/schemas/process_form_schema";
 import { useInterface, Process } from "@/api/useInterface";
-const { resources, processes, error, updateProcess } = useInterface()
+const { resources, processes, updateProcess } = useInterface()
 import { z } from "zod";
 
 const errors = ref<Partial<Record<keyof Process, string[]>>>({});
 
-const processSelected : Ref<Boolean> = ref(false)
+const processSelected : Ref<Process | null> = ref(null)
 
-const form = reactive<Process>({
-  id: 0,
+const form = reactive<ProcessFormData>({
+  id: null,
   name: "",
-  description: "",
-  items_per_second: 0,
-  date: "",
+  items_per_second: 1,
   resource: null,
   status: 'pending',
-  str_representation: "",
 });
 
 async function handleUpdate() {
-  try {
-    const updated = await updateProcess(form)
-    console.log('Update successful:', updated)
-  } catch (error) {
-    console.error('Update failed:', error)
+  const result = processFormSchema.safeParse(form);
+  if (!result.success) {
+    const fieldErrors: Record<string, string[]> = {};
+
+    for (const issue of result.error.issues) {
+      const path = issue.path.join(".");
+      fieldErrors[path] = fieldErrors[path] || [];
+      fieldErrors[path].push(issue.message);
+    }
+
+    errors.value = fieldErrors;
+    return;
   }
+
+  errors.value = {};
+  updateProcess(result.data);
 }
+
+function makeProxy<K extends keyof ProcessFormData>(
+  key: K,
+  defaultValue: Process[K],
+  processSelected: Ref<Process | null>,
+  form: ProcessFormData
+) {
+  return computed<Process[K]>({
+    get() {
+      return processSelected.value?.[key] ?? defaultValue;
+    },
+    set(val) {
+      if (processSelected.value) {
+        processSelected.value[key] = val;
+      }
+      form[key] = val;
+    },
+  });
+}
+
+const name_proxy = makeProxy("name", "", processSelected, form);
+const items_per_second_proxy = makeProxy("items_per_second", 1, processSelected, form);
+const resource_proxy = makeProxy("resource", null, processSelected, form);
+const status_proxy = makeProxy("status", "pending", processSelected, form);
+
+watch(processSelected, (newVal) => {
+  if (newVal) {
+    form.id = newVal.id;
+  }
+}, { immediate: true });
 </script>
 
 <template>
   <div class="inventory-component-frame">
     <h1>edit processes</h1>
-    <select v-model="form">
+    <select v-model="processSelected">
       <option :value="null">Select a process</option>
       <option
         v-for="process in processes"
         :key="process.id"
         :value="process"
-        :processSelected="true"
       >
         {{ process.str_representation }}
       </option>
@@ -47,11 +84,11 @@ async function handleUpdate() {
     <form v-if="processSelected" @submit.prevent="handleUpdate">
       <div>
         <label>Name:</label>
-        <input v-model="form.name" type="text" />
+        <input v-model="name_proxy" type="text" />
         <p v-if="errors.name">{{ errors.name }}</p>
       </div>
       <div>
-        <select v-model="form.resource">
+        <select v-model="resource_proxy">
           <option :value="null">Select a resource</option>
           <option
             v-for="resource in resources"
@@ -63,18 +100,13 @@ async function handleUpdate() {
         </select>
       </div>
       <div>
-        <label>Quantity:</label>
-        <input v-model="form.items_per_second" type="number" />
+        <label>items_per_second:</label>
+        <input v-model="items_per_second_proxy" type="number" />
         <p v-if="errors.items_per_second">{{ errors.items_per_second }}</p>
       </div>
       <div>
-        <label>Date:</label>
-        <input v-model="form.date" type="date" />
-        <p v-if="errors.date">{{ errors.date }}</p>
-      </div>
-      <div>
         <label>Status:</label>
-        <select v-model="form.status">
+        <select v-model="status_proxy">
           <option value="pending">Pending</option>
           <option value="done">Done</option>
         </select>

@@ -3,9 +3,9 @@ import { z } from "zod";
 import { resourceFormSchema } from "@/schemas/resource_form_schema"
 
 export const orderFormSchema = z.object({
+  id: z.number().nullable(),
   quantity: z.number().min(1,"quantity is required"),
-  date: z.string("date must be a string"),
-  resource: resourceFormSchema.nullable(),
+  resource: z.int().min(1, "a resource id is required").nullable(),
   status: z.enum(['processing', 'completed', 'cancelled']),
 });
 

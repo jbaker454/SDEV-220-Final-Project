@@ -4,10 +4,11 @@ import { onMounted } from 'vue'
 
 import { useInterface } from '@/api/useInterface'
 
-const { processes, error, fetchProcesses} = useInterface()
+const { processes, error, fetchProcesses,fetchResources} = useInterface()
 
 onMounted(() => {
   fetchProcesses()
+  fetchResources()
 })
 </script>
 

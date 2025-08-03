@@ -1,17 +1,19 @@
 <!-- src/components/Forms/Inventory_Form.vue -->
 <script setup lang="ts">
-import { reactive, ref } from "vue";
+import { reactive, ref, onMounted } from "vue";
 import { resourceFormSchema, ResourceFormData } from "@/schemas/resource_form_schema";
-import { submitResource } from "@/api/useInterface";
+import { useInterface } from "@/api/useInterface";
+const { locations, submitResource, fetchLocations } = useInterface()
 import { z } from "zod";
 
 const errors = ref<Partial<Record<keyof ResourceFormData, string[]>>>({});
 
 const form = reactive<ResourceFormData>({
+  id: null,
   name: "",
   description: "",
   quantity: 1,
-  received_date: "",
+  location: null,
 });
 
 function handleSubmit() {
@@ -32,7 +34,9 @@ function handleSubmit() {
   errors.value = {};
   submitResource(result.data);
 }
-
+onMounted(() => {
+  fetchLocations()
+})
 </script>
 
 <template>
@@ -45,6 +49,18 @@ function handleSubmit() {
         <p v-if="errors.name">{{ errors.name }}</p>
       </div>
       <div>
+        <select v-model="form.location">
+          <option :value="null">Select a location</option>
+          <option
+            v-for="location in locations"
+            :key="location.id"
+            :value="location.id"
+          >
+            {{ location.name }}
+          </option>
+        </select>
+      </div>
+      <div>
         <label>Description:</label>
         <input v-model="form.description" type="text" />
         <p v-if="errors.description">{{ errors.description }}</p>
@@ -53,11 +69,6 @@ function handleSubmit() {
         <label>Quantity:</label>
         <input v-model="form.quantity" type="number" />
         <p v-if="errors.quantity">{{ errors.quantity }}</p>
-      </div>
-      <div>
-        <label>Received Date:</label>
-        <input v-model="form.received_date" type="date" />
-        <p v-if="errors.received_date">{{ errors.received_date }}</p>
       </div>
       <button type="submit">Submit</button>
     </form>

@@ -3,11 +3,11 @@ import { z } from "zod";
 import { resourceFormSchema } from "@/schemas/resource_form_schema"
 
 export const shipmentFormSchema = z.object({
+  id: z.number().nullable(),
   completed: z.boolean("must be true or false"),
   quantity: z.number().min(1,"quantity is required"),
-  date: z.string("date must be a string"),
-  resource: resourceFormSchema.nullable(),
-  shipment_type: z.enum(['IN', 'OUT','Incoming','Outgoing']),
+  resource: z.int().min(1, "a resource id is required").nullable(),
+  shipment_type: z.enum(['IN', 'OUT']),
 });
 
 export type ShipmentFormData = z.infer<typeof shipmentFormSchema>;
